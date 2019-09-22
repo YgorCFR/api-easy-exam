@@ -1,7 +1,11 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const fatores_risco = sequelize.define('fatores_risco', {
-    id: DataTypes.INTEGER,
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
     has: DataTypes.INTEGER,
     dm: DataTypes.INTEGER,
     tabagismo: DataTypes.INTEGER,

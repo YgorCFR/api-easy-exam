@@ -1,7 +1,11 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const cm = sequelize.define('cm', {
-    id: DataTypes.INTEGER,
+    id:{
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
     descricao: DataTypes.STRING
   }, {});
   cm.associate = function(models) {

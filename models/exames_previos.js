@@ -1,7 +1,11 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const exames_previos = sequelize.define('exames_previos', {
-    id: DataTypes.INTEGER,
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
     cat: DataTypes.INTEGER,
     te: DataTypes.INTEGER,
     cm: DataTypes.INTEGER,

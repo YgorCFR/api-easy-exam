@@ -21,18 +21,21 @@ router.get('/', function(req, res, next) {
 /*GET buscando paciente por nome */
 router.get('/:nome', function(req, res, next) {
   const op = Sequelize.Op;
-  const nome = req.params.nome; 
+  const nome = req.params.nome;
   model.Paciente.findAll({
-    where: { nome: { [op.like]: `%${nome}%` } }
+    where: {
+      nome: {
+        [op.like]: `%${nome}%`
+      }
+    }
   })
   .then(paciente => res.json({
-    error: false,
+    message: `Retornando paciente com nome ${nome}`,
     data: paciente
   }))
   .catch(error => res.json({
-    error:true,
-    data:[],
-    error: False
+    error:error,
+    data:[]
   }));
 });
 

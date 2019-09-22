@@ -1,7 +1,11 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const administracao_radiofarmaco = sequelize.define('administracao_radiofarmaco', {
-    id: DataTypes.INTEGER,
+    id:{ 
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
     hora: DataTypes.DATE,
     dose: DataTypes.STRING,
     material_lote: DataTypes.STRING,
