@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var model = require('../models/index');
+const Sequelize = require('sequelize');
 var url = require('url');
 
 /* GET buscando todos os pacientes */
@@ -19,22 +20,20 @@ router.get('/', function(req, res, next) {
 
 /*GET buscando paciente por nome */
 router.get('/:nome', function(req, res, next) {
+  const op = Sequelize.Op;
   const nome = req.params.nome; 
   model.Paciente.findAll({
-        where : {
-          nome : nome
-        }
+    where: { nome: { [op.like]: `%${nome}%` } }
   })
   .then(paciente => res.json({
     error: false,
-    data: paciente,
-    message: `Retornando paciente com nome ${nome}`
+    data: paciente
   }))
   .catch(error => res.json({
-    error: true,
-    data: [],
-    error: error
-  }))
+    error:true,
+    data:[],
+    error: False
+  }));
 });
 
 /*GET buscando paciente por id */
