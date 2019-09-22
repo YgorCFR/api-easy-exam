@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   exame.associate = function(models) {
     // associations can be defined here
-    exame.belongsTo(models.Paciente, {foreignKey: 'paciente', as: 'exame_paciente'});
+    exame.belongsTo(models.paciente, {foreignKey: 'paciente', as: 'exame_paciente'});
     exame.belongsTo(models.hda, {foreignKey: 'hda', as: 'exame_hda'});
     exame.belongsTo(models.motivo, {foreignKey: 'motivo', as: 'exame_motivo'});
     exame.belongsTo(models.hpp, {foreignKey: 'hpp', as: 'exame_hpp'});

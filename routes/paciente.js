@@ -6,7 +6,7 @@ var url = require('url');
 
 /* GET buscando todos os pacientes */
 router.get('/', function(req, res, next) {
-  model.Paciente.findAll({})
+  model.paciente.findAll({})
     .then(paciente => res.json({
       error: false,
       data: paciente
@@ -22,7 +22,7 @@ router.get('/', function(req, res, next) {
 router.get('/:nome', function(req, res, next) {
   const op = Sequelize.Op;
   const nome = req.params.nome;
-  model.Paciente.findAll({
+  model.paciente.findAll({
     where: {
       nome: {
         [op.like]: `%${nome}%`
@@ -42,7 +42,7 @@ router.get('/:nome', function(req, res, next) {
 /*GET buscando paciente por id */
 router.get('/id/:id_paciente', function(req, res, next) {
   const id_paciente = req.params.id_paciente; 
-  model.Paciente.findAll({
+  model.paciente.findAll({
         where : {
           id_paciente : id_paciente
         }
@@ -70,7 +70,7 @@ router.post('/', function (req, res, next){
     altura,
     sexo
   } = req.body;
-    model.Paciente.create({
+    model.paciente.create({
         cpf: cpf,
         nome: nome,
         email: email,
@@ -95,7 +95,7 @@ router.post('/', function (req, res, next){
 router.put('/:id_paciente', function (req, res, next) {
   const id_paciente = req.params.id_paciente;
   const { cpf, nome, email, data_nascimento, peso, altura, sexo } = req.body;
-  model.Paciente.update({
+  model.paciente.update({
     cpf: cpf,
     nome: nome,
     email: email,
@@ -110,7 +110,7 @@ router.put('/:id_paciente', function (req, res, next) {
   })
   .then(paciente => res.status(201).json({
     error: false,
-    message: 'Paciente foi atualizado.'
+    message: 'paciente foi atualizado.'
   })) 
   .catch(error => res.json({
     error: true,
@@ -121,14 +121,14 @@ router.put('/:id_paciente', function (req, res, next) {
 /*DELETE eliminando o usuario selecionado.*/
 router.delete('/:id_paciente', function (req, res, next){
     const id_paciente = req.params.id_paciente;
-    model.Paciente.destroy({
+    model.paciente.destroy({
       where : {
         id_paciente: id_paciente
       }
     })
     .then(status => res.status(201).json({
       error: false,
-      message: 'Paciente foi deletado.'
+      message: 'paciente foi deletado.'
     }))
     .catch(error => res.json({
       error: true,
