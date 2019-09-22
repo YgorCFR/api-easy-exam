@@ -24,10 +24,9 @@ module.exports = (sequelize, DataTypes) => {
     exame.belongsTo(models.hda, {foreignKey: 'hda', as: 'exame_hda'});
     exame.belongsTo(models.motivo, {foreignKey: 'motivo', as: 'exame_motivo'});
     exame.belongsTo(models.hpp, {foreignKey: 'hpp', as: 'exame_hpp'});
-    exame.belongsTo(models.exames_previos, {foreignKey:'exame_exames_previos'});
+    exame.belongsTo(models.exames_previos, {foreignKey:'exames_previos'});
     exame.belongsTo(models.medicamentos, {foreignKey: 'exame_medicamentos'});
-    exame.belongsTo(models.administracao_radiofarmaco, {foreignKey: 'exame_administracao_radiofarmaco'});
-    exame.belongsTo(models.realizacao_exame, {foreignKey: 'exame_realizacao_exame'});
-  };
+    exame.belongsTo(models.administracao_radiofarmaco, {foreignKey: 'administracao_radiofarmaco', as: 'exame_administracao_radiofarmaco'});
+    exame.belongsTo(models.realizacao_exame, {foreignKey: 'realizacao_exame', as: 'exame_realizacao_exame'});  };
   return exame;
 };
