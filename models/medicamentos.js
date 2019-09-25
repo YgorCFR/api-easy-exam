@@ -1,7 +1,11 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const medicamentos = sequelize.define('medicamentos', {
-    id: DataTypes.INTEGER,
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
     bloq_calcio: DataTypes.STRING,
     nitrato: DataTypes.STRING,
     estatina: DataTypes.STRING,

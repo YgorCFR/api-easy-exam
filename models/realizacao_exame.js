@@ -1,7 +1,11 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const realizacao_exame = sequelize.define('realizacao_exame', {
-    id: DataTypes.INTEGER,
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
     hora: DataTypes.DATE,
     obs_1: DataTypes.STRING,
     protocolo_captacao: DataTypes.STRING,

@@ -1,74 +1,73 @@
 var express = require('express');
 var router = express.Router();
 var model = require('../models/index');
+const Sequelize = require('sequelize');
 var url = require('url');
 
 /* GET buscando todos os pacientes */
 router.get('/', function(req, res, next) {
-  model.Paciente.findAll({})
+  model.paciente.findAll({})
     .then(paciente => res.json({
-      error: false,
       data: paciente
     }))
     .catch(error => res.json({
-      error:true,
       data:[],
-      error: False
+      error: error
     }));
 });
 
 /*GET buscando paciente por nome */
 router.get('/:nome', function(req, res, next) {
-  const nome = req.params.nome; 
-  model.Paciente.findAll({
-        where : {
-          nome : nome
-        }
+  const op = Sequelize.Op;
+  const nome = req.params.nome;
+  model.paciente.findAll({
+    where: {
+      nome: {
+        [op.like]: `%${nome}%`
+      }
+    }
   })
-  .then(paciente => res.json({
-    error: false,
-    data: paciente,
-    message: `Retornando paciente com nome ${nome}`
+  .then(paciente => res.status(200).json({
+    message: `Retornando paciente com nome ${nome}`,
+    data: paciente
   }))
   .catch(error => res.json({
-    error: true,
-    data: [],
-    error: error
-  }))
+    error:error,
+    data:[]
+  }));
 });
 
 /*GET buscando paciente por id */
 router.get('/id/:id_paciente', function(req, res, next) {
   const id_paciente = req.params.id_paciente; 
-  model.Paciente.findAll({
+  model.paciente.findAll({
         where : {
           id_paciente : id_paciente
         }
   })
-  .then(paciente => res.json({
-    error: false,
+  .then(paciente => res.status(200).json({
     data: paciente,
     message: `Retornando paciente com id ${id_paciente}`
   }))
   .catch(error => res.json({
-    error: true,
     data: [],
     error: error
   }))
 });
 
-/*POST buscando todos os pacientes*/
+/*POST criando paciente */
 router.post('/', function (req, res, next){
   const {
-    cpf,
-    nome,
-    email,
-    data_nascimento,
-    peso,
-    altura,
-    sexo
-  } = req.body;
-    model.Paciente.create({
+    cpf, nome, email, data_nascimento, peso, altura, sexo } = req.body;
+    if(!cpf.trim()){
+      res.status(412).send({ message: 'O CPF não pode ser vazio' });
+      return;
+    }
+    if(!nome.trim()){
+      res.status(412).send({ message: 'O nome não pode ser vazio' });
+      return;
+    }
+    model.paciente.create({
         cpf: cpf,
         nome: nome,
         email: email,
@@ -78,22 +77,29 @@ router.post('/', function (req, res, next){
         sexo: sexo
       })
       .then(paciente => res.status(201).json({
-        error: false,
         data: paciente,
         message: 'Um novo paciente foi criado.'
       }))
       .catch(error => res.json({
-        error: true,
         data: [],
         error: error
       }));
 });
 
-/*PUT buscando todos os pacientes*/
+/*PUT atualizando paciente*/
 router.put('/:id_paciente', function (req, res, next) {
   const id_paciente = req.params.id_paciente;
   const { cpf, nome, email, data_nascimento, peso, altura, sexo } = req.body;
-  model.Paciente.update({
+  //validacao
+  if(!cpf.trim()){
+    res.status(412).send({ message: 'O CPF não pode ser vazio' });
+    return;
+  }
+  if(!nome.trim()){
+    res.status(412).send({ message: 'O nome não pode ser vazio' });
+    return;
+  }
+  model.paciente.update({
     cpf: cpf,
     nome: nome,
     email: email,
@@ -107,29 +113,25 @@ router.put('/:id_paciente', function (req, res, next) {
     }
   })
   .then(paciente => res.status(201).json({
-    error: false,
-    message: 'Paciente foi atualizado.'
+    message: 'paciente foi atualizado.'
   })) 
   .catch(error => res.json({
-    error: true,
-    error: error
+    error:error
   }));
 });
 
 /*DELETE eliminando o usuario selecionado.*/
 router.delete('/:id_paciente', function (req, res, next){
     const id_paciente = req.params.id_paciente;
-    model.Paciente.destroy({
+    model.paciente.destroy({
       where : {
         id_paciente: id_paciente
       }
     })
     .then(status => res.status(201).json({
-      error: false,
-      message: 'Paciente foi deletado.'
+      message: 'paciente foi deletado.'
     }))
     .catch(error => res.json({
-      error: true,
       error: error
     }));
 })

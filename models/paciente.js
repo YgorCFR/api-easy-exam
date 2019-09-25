@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const Paciente = sequelize.define('Paciente', {
+  const paciente = sequelize.define('paciente', {
     id_paciente:{ 
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -19,9 +19,9 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     timestamps: false
   });
-  Paciente.associate = function(models) {
+  paciente.associate = function(models) {
     // associations can be defined here
-    Paciente.hasMany(models.exame, {as: 'paciente_exame'})
+    paciente.hasMany(models.exame, {as: 'paciente_exame'})
   };
-  return Paciente;
+  return paciente;
 };

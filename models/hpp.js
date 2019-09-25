@@ -1,7 +1,11 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const hpp = sequelize.define('hpp', {
-    id: DataTypes.INTEGER,
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
     fatores_risco: DataTypes.INTEGER,
     dac_previa: DataTypes.INTEGER,
     comorbidades: DataTypes.INTEGER

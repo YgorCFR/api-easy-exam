@@ -1,7 +1,11 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const dac_previa = sequelize.define('dac_previa', {
-    id: DataTypes.INTEGER,
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
     iam: DataTypes.INTEGER,
     crvm: DataTypes.INTEGER,
     ptca: DataTypes.INTEGER,

@@ -1,7 +1,11 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const atuacao = sequelize.define('atuacao', {
-    id: DataTypes.INTEGER,
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
     descricao: DataTypes.STRING
   }, {});
   atuacao.associate = function(models) {
