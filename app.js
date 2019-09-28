@@ -8,8 +8,11 @@ var indexRouter = require('./routes/index');
 var pacienteRouter = require('./routes/paciente');
 var exameRouter = require('./routes/exame');
 
+var cors = require('cors')
+
 var app = express();
 
+app.use(cors())
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
