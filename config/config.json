@@ -10,7 +10,7 @@
   "test": {
     "username": "root",
     "password": "12345678",
-    "database": "database_test",
+    "database": "easy_exam",
     "host": "18.234.60.80",
     "dialect": "mysql",
     "operatorsAliases": false
@@ -18,7 +18,7 @@
   "production": {
     "username": "root",
     "password": "12345678",
-    "database": "database_production",
+    "database": "easy_exam",
     "host": "18.234.60.80",
     "dialect": "mysql",
     "operatorsAliases": false
