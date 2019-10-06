@@ -17,7 +17,9 @@ module.exports = (sequelize, DataTypes) => {
     status: DataTypes.INTEGER,
     data_criacao: DataTypes.DATE,
     data_alteracao: DataTypes.DATE
-  }, {});
+  }, {
+    timestamps: false
+  });
   exame.associate = function(models) {
     // associations can be defined here
     exame.belongsTo(models.paciente, {foreignKey: 'paciente', as: 'exame_paciente'});

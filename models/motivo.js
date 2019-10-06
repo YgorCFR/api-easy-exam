@@ -6,18 +6,20 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true
     },
-    dor_toraxica: DataTypes.INTEGER,
-    pos_sca: DataTypes.INTEGER,
-    pos_crvm: DataTypes.INTEGER,
-    alteracao_exame: DataTypes.INTEGER,
-    equiv_anginoso: DataTypes.INTEGER,
-    lesao_coronaria: DataTypes.INTEGER,
-    arritmia: DataTypes.INTEGER,
-    sincope: DataTypes.INTEGER,
-    pos_ptca: DataTypes.INTEGER,
-    icc: DataTypes.INTEGER,
-    risco_cirurgico: DataTypes.INTEGER
-  }, {});
+    dor_toraxica: DataTypes.BOOLEAN,
+    pos_sca: DataTypes.BOOLEAN,
+    pos_crvm: DataTypes.BOOLEAN,
+    alteracao_exame: DataTypes.BOOLEAN,
+    equiv_anginoso: DataTypes.BOOLEAN,
+    lesao_coronaria: DataTypes.BOOLEAN,
+    arritmia: DataTypes.BOOLEAN,
+    sincope: DataTypes.BOOLEAN,
+    pos_ptca: DataTypes.BOOLEAN,
+    icc: DataTypes.BOOLEAN,
+    risco_cirurgico: DataTypes.BOOLEAN
+  }, {
+    timestamps: false
+  });
   motivo.associate = function(models) {
     // associations can be defined here
     motivo.hasMany(models.exame, {as: 'motivo_exame'})

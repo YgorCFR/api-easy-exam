@@ -6,14 +6,14 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true
     },
-    dor_toraxica_tipica: DataTypes.INTEGER,
-    assintomatico: DataTypes.INTEGER,
-    dor_toraxica_atipica: DataTypes.INTEGER,
-    palpitacoes: DataTypes.INTEGER,
-    dispnea_esforcos: DataTypes.INTEGER,
-    sincope: DataTypes.INTEGER,
-    dispnea_repouso: DataTypes.INTEGER,
-    cansaco: DataTypes.INTEGER
+    dor_toraxica_tipica: DataTypes.BOOLEAN,
+    assintomatico: DataTypes.BOOLEAN,
+    dor_toraxica_atipica: DataTypes.BOOLEAN,
+    palpitacoes: DataTypes.BOOLEAN,
+    dispnea_esforcos: DataTypes.BOOLEAN,
+    sincope: DataTypes.BOOLEAN,
+    dispnea_repouso: DataTypes.BOOLEAN,
+    cansaco: DataTypes.BOOLEAN
   }, {});
   hda.associate = function(models) {
     // associations can be defined here
