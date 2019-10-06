@@ -1,25 +1,25 @@
 {
   "development": {
     "username": "root",
-    "password": "adm",
+    "password": "12345678",
     "database": "easy_exam",
-    "host": "127.0.0.1",
+    "host": "18.234.60.80",
     "dialect": "mysql",
     "operatorsAliases": false
   },
   "test": {
     "username": "root",
-    "password": "adm",
-    "database": "easy_exam",
-    "host": "127.0.0.1",
+    "password": "12345678",
+    "database": "database_test",
+    "host": "18.234.60.80",
     "dialect": "mysql",
     "operatorsAliases": false
   },
   "production": {
     "username": "root",
-    "password": "adm",
+    "password": "12345678",
     "database": "database_production",
-    "host": "127.0.0.1",
+    "host": "18.234.60.80",
     "dialect": "mysql",
     "operatorsAliases": false
   }
