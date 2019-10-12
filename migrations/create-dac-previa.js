@@ -9,16 +9,16 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       iam: {
-        type: Sequelize.INTEGER
+        type: Sequelize.BOOLEAN
       },
       crvm: {
-        type: Sequelize.INTEGER
+        type: Sequelize.BOOLEAN
       },
       ptca: {
-        type: Sequelize.INTEGER
+        type: Sequelize.BOOLEAN
       },
       cat_alterado: {
-        type: Sequelize.INTEGER
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,
