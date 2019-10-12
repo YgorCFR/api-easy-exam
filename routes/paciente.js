@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var model = require('../models/index');
-const Sequelize = require('sequelize');
+const sequelize = require('sequelize');
 var url = require('url');
 
 /* GET buscando todos os pacientes */
