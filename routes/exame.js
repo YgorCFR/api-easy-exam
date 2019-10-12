@@ -2,13 +2,36 @@ var express = require('express');
 var router = express.Router();
 var model = require('../models/index');
 var url = require('url');
+const sequelize = require('sequelize');
 
-/*POST criando exame */
-router.post('/', function (req, res, next){
-    const {
-     paciente, motivo} = req.body; //, hda, hpp, exames_previos, medicamentos, administracao_radiofarmaco,
-    // realizacao_exame, status, data_criacao, data_alteracao } = req.body;
-    model.motivo.create({
+
+const saveHda = async (hda, res) => {
+    await model.hda.create({
+        dor_toraxica_tipica: hda.dor_toraxica_tipica,
+        assintomatico: hda.assintomatico,
+        dor_toraxica_atipica: hda.dor_toraxica_atipica,
+        palpitacoes: hda.palpitacoes,
+        dispnea_esforcos: hda.dispnea_esforcos,
+        sincope: hda.sincope,
+        dispneia_repouso: hda.dispneia_repouso,
+        cansaco: hda.cansaco
+    })
+    .catch(error => { res.status(424).json({
+        message: "Erro ao inserir hda",
+        error: error
+    })
+        return hda;
+    })
+    .then(hda => { 
+        res = hda;
+    });
+
+    return res;
+    
+};
+
+const saveMotivos = async (motivo, res) => {
+    await model.motivo.create({
         dor_toraxica: motivo.dor_toraxica,
         pos_sca: motivo.pos_sca,
         pos_crvm: motivo.pos_crvm,
@@ -19,24 +42,177 @@ router.post('/', function (req, res, next){
         sincope: motivo.sincope,
         pos_ptca: motivo.pos_ptca,
         icc: motivo.icc,
-        risco_cirurgico: motivo.risco_cirurgico
+        risco_cirurgico: motivo.risco_cirurgico 
     })
-    .then(motivo => model.exame.create({
-        paciente: paciente,
-        motivo: motivo.id,
-    }))
-    .catch(error => res.json({
-        message: "Erro ao inserir motivo",
+    .catch(error =>{ res.status(424).json({
+        message: "Error ao inserir motivo",
+        error: error
+    })
+        return motivo
+    })
+    .then(motivo => {
+        res = motivo;
+    })
+    
+    return res; 
+};
+
+
+const saveDacPrevia = async (dac_previa, res) => {
+    await model.dac_previa.create({
+        iam : dac_previa.iam,
+        crvm : dac_previa.crvm,
+        ptca: dac_previa.ptca,
+        cat_alterado: dac_previa.cat_alterado
+    })
+    .catch(error => res.status(424).json({
+        message: "Error ao inserir dac_previa",
         error: error
     }))
-    .then(exame => res.status(201).json({
-        data: exame,
-        message: 'Um novo exame foi criado.'
+    .then(dac_previa =>  {
+        res = dac_previa;
+    })
+
+    return res;
+}
+
+const saveFatoresRisco = async (fatores_risco, res) => {
+    await model.fatores_risco.create({
+            has: fatores_risco.has,
+            dm: fatores_risco.dm,
+            tabagismo: fatores_risco.tabagismo,
+            ex_tabagismo: fatores_risco.ex_tabagismo,
+            obesidade: fatores_risco.obesidade,
+            dislipdemia: fatores_risco.dislipdemia,
+            hf: fatores_risco.hf,
+            menopausa: fatores_risco.menopausa
+    })
+    .catch(error => res.status(424).json({
+        message: "Error ao inserir fatores_risco",
+        error : error
     }))
-    .catch(error => res.json({
-        message: "Erro ao criar exame",
+    .then(fatores_risco => {
+            res = fatores_risco;   
+    })
+
+    return res;
+}
+
+const saveComorbidades = async (comorbidades, res) => {
+    await model.comorbidades.create({
+        avc : comorbidades.avc,
+        irc : comorbidades.irc,
+        aao : comorbidades.aao,
+        dca_vasc : comorbidades.dca_vasc
+    })
+    .catch(error => res.status(424).json({
+        message: "Error ao inserir comorbidades",
         error: error
-    }));  
+    }))
+    .then(comorbidades => {
+        res = comorbidades
+    })
+
+    return res;
+}
+
+
+const saveHpp = async (hpp, res, dac_previa, fatores_risco, comorbidades) => {
+    await model.hpp.create({
+        fatores_risco: fatores_risco.id,
+        dac_previa: dac_previa.id,
+        comorbidades: comorbidades.id
+    })
+    .catch(error => res.status(424).json({
+        message: "Error ao inserir em hpp",
+        error: error
+    }))
+    .then(hpp => {
+        res = hpp;
+    })
+
+    return res;
+}
+
+const saveExamesPrevios = async(exames_previos, res, cat, te, cm, eco) => {
+    await model.exames_previos.create({
+        cat: cat.id,
+        te: te.id,
+        cm: cm.id,
+        eco: eco.id
+    })
+    .catch(error => res.status(424).json({
+        message: "Error ao inserir em exames previos",
+        error: error
+    }))
+    .then(exames_previos => {
+        res = exames_previos;      
+    })
+    return res;
+}
+
+const saveMedicamentos = async(medicamentos, res) => {
+    await model.medicamentos.create({
+        bloq_calcio: medicamentos.bloq_calcio,
+        nitrato: medicamentos.nitrato,
+        estatina: medicamentos.estatina,
+        bra: medicamentos.bra,
+        ieca: medicamentos.ieca,
+        clopido_rel: medicamentos.clopido_rel,
+        aas: medicamentos.aas,
+        b_bloqueador : medicamentos.b_bloqueador,
+        diuretico: medicamentos.diuretico,
+        outros: medicamentos.outros
+    })
+    .catch(error => res.status(424).json({
+        message: "Error ao inserir em medicamentos",
+        error: error
+    }))
+    .then(medicamentos => {
+       res = medicamentos;
+    })
+
+    return res;
+}
+
+const saveExames = async(exame, paciente, hda, motivos, exames_previos, hpp,dac_previa, fatores_risco, comorbidades, medicamentos, status, data_criacao, data_alteracao, res) => {
+    await exame.create({
+        paciente: paciente.id,
+        hda: hda.id,
+        motivo: motivos.id,
+        hpp: hpp.id,
+        exames_previos: exames_previos.id,
+        medicamentos : medicamentos.id,
+        status: status,
+        data_criacao: data_criacao,
+        data_alteracao: data_alteracao  
+    })
+    .then(exames => res.status(201).json({
+        message: "Exame criado com sucesso!",
+        data: {motivos, hda, hpp, detalhes_hpp : {dac_previa, fatores_risco, comorbidades}, exames_previos, medicamentos}
+    }))
+    .catch(error => res.status(424).json({
+        message: "Erro ao inserir exame",
+        error: error
+    }))
+}
+
+/*POST criando exame */
+/*Considerando nessa sprint apenas de hda até medicamentos*/
+router.post('/', async function (req, res, next){
+        
+        const {paciente, motivo, hda, exames_previos,hpp,medicamentos,status, data_criacao, data_alteracao} = req.body;
+        let stepHda = await saveHda(hda, res);
+        let stepMotivos = await saveMotivos(motivo, res);
+        let stepDacPrevia = await saveDacPrevia(hpp.dac_previa, res);
+        let stepFatoresRisco = await saveFatoresRisco(hpp.fatores_risco, res);
+        let stepComorbidades = await saveComorbidades(hpp.comorbidades, res);
+        let stepHpp = await saveHpp(hpp, res,stepDacPrevia, stepFatoresRisco, stepComorbidades);
+        let stepExamesPrevios = await saveExamesPrevios(exames_previos, res, exames_previos.cat, 
+            exames_previos.te, exames_previos.cm, exames_previos.eco);
+        let stepMedicamentos = await saveMedicamentos(medicamentos, res);
+        let stepExames = await saveExames(model.exames,paciente, stepHda, stepMotivos, stepExamesPrevios, stepHpp, stepExamesPrevios,
+            stepFatoresRisco, stepComorbidades, stepMedicamentos, status, data_criacao, data_alteracao, res);
   });
 
   module.exports = router;
