@@ -9,16 +9,16 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       avc: {
-        type: Sequelize.INTEGER
+        type: Sequelize.BOOLEAN
       },
       irc: {
-        type: Sequelize.INTEGER
+        type: Sequelize.BOOLEAN
       },
       aao: {
-        type: Sequelize.INTEGER
+        type: Sequelize.BOOLEAN
       },
       dca_vasc: {
-        type: Sequelize.INTEGER
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,
