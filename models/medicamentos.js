@@ -16,10 +16,12 @@ module.exports = (sequelize, DataTypes) => {
     b_bloqueador: DataTypes.STRING,
     diuretico: DataTypes.STRING,
     outros: DataTypes.STRING
-  }, {});
+  }, {
+    timestamps: false
+  });
   medicamentos.associate = function(models) {
     // associations can be defined here
-    medicamentos.hasMany(models.exame, {as: 'medicamentos_exame'})
+    medicamentos.hasMany(models.exames, {as: 'medicamentos_exame'})
   };
   return medicamentos;
 };
