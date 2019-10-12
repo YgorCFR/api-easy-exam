@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   administracao_radiofarmaco.associate = function(models) {
     // associations can be defined here
-    administracao_radiofarmaco.hasMany(models.exame, {as: 'exame_administracao_radiofarmaco'})
+    administracao_radiofarmaco.hasMany(models.exames, {as: 'exame_administracao_radiofarmaco'})
   };
   return administracao_radiofarmaco;
 };
