@@ -9,36 +9,28 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       dor_toraxica_tipica: {
-        type: Sequelize.INTEGER
+        type: Sequelize.BOOLEAN
       },
       assintomatico: {
-        type: Sequelize.INTEGER
+        type: Sequelize.BOOLEAN
       },
       dor_toraxica_atipica: {
-        type: Sequelize.INTEGER
+        type: Sequelize.BOOLEAN
       },
       palpitacoes: {
-        type: Sequelize.INTEGER
+        type: Sequelize.BOOLEAN
       },
       dispnea_esforcos: {
-        type: Sequelize.INTEGER
+        type: Sequelize.BOOLEAN
       },
       sincope: {
-        type: Sequelize.INTEGER
+        type: Sequelize.BOOLEAN
       },
-      dispnea_repouso: {
-        type: Sequelize.INTEGER
+      dispneia_repouso: {
+        type: Sequelize.BOOLEAN
       },
       cansaco: {
-        type: Sequelize.INTEGER
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.BOOLEAN
       }
     });
   },
