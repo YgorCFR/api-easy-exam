@@ -12,12 +12,14 @@ module.exports = (sequelize, DataTypes) => {
     palpitacoes: DataTypes.BOOLEAN,
     dispnea_esforcos: DataTypes.BOOLEAN,
     sincope: DataTypes.BOOLEAN,
-    dispnea_repouso: DataTypes.BOOLEAN,
+    dispneia_repouso: DataTypes.BOOLEAN,
     cansaco: DataTypes.BOOLEAN
-  }, {});
+  }, {
+      timestamps: false
+  });
   hda.associate = function(models) {
     // associations can be defined here
-    hda.hasMany(models.exame, {as: 'hda_exame'})
+    hda.hasMany(models.exames, {as: 'hda_exame'})
   };
   return hda;
 };
