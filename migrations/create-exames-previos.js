@@ -8,12 +8,9 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      id: {
-        type: Sequelize.INTEGER
-      },
       cat: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: {  
           model: 'cat',
           key: 'id'
@@ -21,7 +18,7 @@ module.exports = {
       },
       te: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references : {
           model: 'te',
           key: 'id'
@@ -29,7 +26,7 @@ module.exports = {
       },
       cm: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references: {
           model:'cm',
           key: 'id'
@@ -37,7 +34,7 @@ module.exports = {
       },
       eco: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
         references : {
           model: 'eco',
           key: 'id'
