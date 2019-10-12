@@ -6,15 +6,17 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true
     },
-    has: DataTypes.INTEGER,
-    dm: DataTypes.INTEGER,
-    tabagismo: DataTypes.INTEGER,
-    ex_tabagismo: DataTypes.INTEGER,
-    obesidade: DataTypes.INTEGER,
-    dislipdemia: DataTypes.INTEGER,
-    hf: DataTypes.INTEGER,
-    menopausa: DataTypes.INTEGER
-  }, {});
+    has: DataTypes.BOOLEAN,
+    dm: DataTypes.BOOLEAN,
+    tabagismo: DataTypes.BOOLEAN,
+    ex_tabagismo: DataTypes.BOOLEAN,
+    obesidade: DataTypes.BOOLEAN,
+    dislipdemia: DataTypes.BOOLEAN,
+    hf: DataTypes.BOOLEAN,
+    menopausa: DataTypes.BOOLEAN
+  }, {
+    timestamps: false
+  });
   fatores_risco.associate = function(models) {
     // associations can be defined here
     fatores_risco.hasMany(models.hpp, {as: 'hpps_fatores_risco'})
