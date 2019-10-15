@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
   });
   medicamentos.associate = function(models) {
     // associations can be defined here
-    medicamentos.hasMany(models.exames, {as: 'medicamentos_exame'})
+    medicamentos.hasMany(models.exames, {foreignKey: medicamentos, as: 'medicamentos_exame'})
   };
   return medicamentos;
 };

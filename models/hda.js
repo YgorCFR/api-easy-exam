@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
   });
   hda.associate = function(models) {
     // associations can be defined here
-    hda.hasMany(models.exames, {as: 'hda_exame'})
+    hda.hasMany(models.exames, {foreignKey: 'hda', as: 'hda_exame'})
   };
   return hda;
 };

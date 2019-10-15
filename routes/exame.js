@@ -214,5 +214,20 @@ router.post('/', async function (req, res, next){
         let stepExames = await saveExames(model.exames,paciente, stepHda, stepMotivos, stepExamesPrevios, stepHpp, stepExamesPrevios,
             stepFatoresRisco, stepComorbidades, stepMedicamentos, status, data_criacao, data_alteracao, res);
   });
-
+  //GET listando exames
+  router.get('/id/:id', function(req, res, next) {
+    const id_exame = req.params.id; 
+    model.exames.findOne({
+        //subQuery: false,
+        where:{id:id_exame},
+    })
+    .then(exame => res.status(200).json({
+      data: exame,
+      message: `Retornando exame com id ${id_exame}`
+    }))
+    .catch(error => res.json({
+      data: [],
+      error: error
+    }))
+  });
   module.exports = router;

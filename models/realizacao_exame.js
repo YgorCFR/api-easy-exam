@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   realizacao_exame.associate = function(models) {
     // associations can be defined here
-    realizacao_exame.hasMany(models.exames, {as: 'realizacao_exame_exame'})
+    realizacao_exame.hasMany(models.exames, {foreignKey:'realizacao_exame', as: 'realizacao_exame_exame'})
   };
   return realizacao_exame;
 };

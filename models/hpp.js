@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     hpp.belongsTo(models.fatores_risco, {foreignKey: 'fatores_risco', as: 'fatores_risco_hpp'});
     hpp.belongsTo(models.dac_previa, {foreignKey: 'dac_previa', as: 'dac_previa_hpp'});
     hpp.belongsTo(models.comorbidades, {foreignKey: 'comorbidades', as: 'comorbidades_hpp'});
-    hpp.hasMany(models.exames, {as: 'hpp_exame'});
+    hpp.hasMany(models.exames, {foreignKey: 'hpp', as: 'hpp_exame'});
   };
   return hpp;
 };
