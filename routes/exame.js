@@ -215,61 +215,11 @@ router.post('/', async function (req, res, next){
         let stepExames = await saveExames(model.exames,paciente, stepHda, stepMotivos, stepExamesPrevios, stepHpp, stepExamesPrevios,
             stepFatoresRisco, stepComorbidades, stepMedicamentos, status, data_criacao, data_alteracao, res);
   });
-  //GET listando exame por id
-  router.get('/id/:id', function(req, res, next) {
+//GET listando exame por id
+router.get('/id/:id', function(req, res, next) {
     const id_exame = req.params.id; 
     model.exames.findOne({
-        include: [{
-                model: model.paciente,
-                as: 'exame_paciente',
-                required: true
-            },
-            {
-                model: model.motivo,
-                as: 'exame_motivo',
-                required: true
-            },
-            {
-                model: model.hda,
-                as: 'exame_hda'
-            },
-            {
-                model: model.exames_previos,
-                as: 'exames_previos_exames',
-                include: [{
-                        model: model.cat,
-                        as: 'cat_exames_previos'
-                    },{
-                        model: model.te,
-                        as: 'te_exames_previos'
-                    },{
-                        model: model.cm,
-                        as: 'cm_exames_previos'
-                    },{
-                        model: model.eco,
-                        as: 'eco_exames_previos'
-                    }
-                ]
-            },{
-                model: model.hpp,
-                as: 'exame_hpp',
-                include: [{
-                        model: model.fatores_risco,
-                        as: 'hpp_fatores_risco'
-                    },{
-                        model: model.dac_previa,
-                        as: 'hpp_dac_previa'
-                    },{
-                        model: model.comorbidades,
-                        as: 'hpp_comorbidades'
-                    }
-                ]
-            },{
-                model: model.medicamentos,
-                as: 'exame_medicamentos',
-            }
-        ],
-  
+        include: getExameData(),
         where: {
             id: id_exame
         }
@@ -282,5 +232,74 @@ router.post('/', async function (req, res, next){
       data: [],
       error: error
     }))
-  });
-  module.exports = router;
+});
+
+//GET listando todos os exames
+router.get('/', function(req, res, next) {
+    const id_exame = req.params.id; 
+    model.exames.findAll({
+        include: getExameData()
+    })
+    .then(exame => res.status(200).json({
+        data: exame
+    }))
+    .catch(error => res.json({
+        data: [],
+        error: error
+    }))
+});
+
+function getExameData(){
+    return [
+        {
+            model: model.paciente,
+            as: 'exame_paciente',
+            required: true
+        },
+        {
+            model: model.motivo,
+            as: 'exame_motivo',
+            required: true
+        },
+        {
+            model: model.hda,
+            as: 'exame_hda'
+        },
+        {
+            model: model.exames_previos,
+            as: 'exames_previos_exames',
+            include: [{
+                    model: model.cat,
+                    as: 'cat_exames_previos'
+                },{
+                    model: model.te,
+                    as: 'te_exames_previos'
+                },{
+                    model: model.cm,
+                    as: 'cm_exames_previos'
+                },{
+                    model: model.eco,
+                    as: 'eco_exames_previos'
+                }
+            ]
+        },{
+            model: model.hpp,
+            as: 'exame_hpp',
+            include: [{
+                    model: model.fatores_risco,
+                    as: 'hpp_fatores_risco'
+                },{
+                    model: model.dac_previa,
+                    as: 'hpp_dac_previa'
+                },{
+                    model: model.comorbidades,
+                    as: 'hpp_comorbidades'
+                }
+            ]
+        },{
+            model: model.medicamentos,
+            as: 'exame_medicamentos',
+        }
+    ]
+}
+module.exports = router;
