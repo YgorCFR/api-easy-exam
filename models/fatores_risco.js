@@ -15,11 +15,12 @@ module.exports = (sequelize, DataTypes) => {
     hf: DataTypes.BOOLEAN,
     menopausa: DataTypes.BOOLEAN
   }, {
-    timestamps: false
+    timestamps: false,
+    freezeTableName: true
   });
   fatores_risco.associate = function(models) {
     // associations can be defined here
-    fatores_risco.hasMany(models.hpp, {as: 'hpps_fatores_risco'})
+    fatores_risco.hasMany(models.hpp, {foreignKey: 'dac_previa', as: 'hpp_fatores_risco'})
   };
   return fatores_risco;
 };

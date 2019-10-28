@@ -24,9 +24,9 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
     exames.belongsTo(models.paciente, {foreignKey: 'paciente', as: 'exame_paciente'});
     exames.belongsTo(models.hda, {foreignKey: 'hda', as: 'exame_hda'});
-    exames.belongsTo(models.motivo, {foreignKey: 'motivo', as: 'motivos'});
+    exames.belongsTo(models.motivo, {foreignKey: 'motivo', as: 'exame_motivo'});
     exames.belongsTo(models.hpp, {foreignKey: 'hpp', as: 'exame_hpp'});
-    exames.belongsTo(models.exames_previos, {foreignKey:'exames_previos'});
+    exames.belongsTo(models.exames_previos, {foreignKey:'exames_previos', as: 'exames_previos_exames'});
     exames.belongsTo(models.medicamentos, {foreignKey: 'medicamentos', as: 'exame_medicamentos'});
     exames.belongsTo(models.administracao_radiofarmaco, {foreignKey: 'administracao_radiofarmaco', as: 'exame_administracao_radiofarmaco'});
     exames.belongsTo(models.realizacao_exame, {foreignKey: 'realizacao_exame', as: 'exame_realizacao_exame'});

@@ -220,10 +220,56 @@ router.post('/', async function (req, res, next){
     const id_exame = req.params.id; 
     model.exames.findOne({
         include: [{
-            model: model.motivo,
-            as: 'motivos',
-            required: true,
-        }],
+                model: model.paciente,
+                as: 'exame_paciente',
+                required: true
+            },
+            {
+                model: model.motivo,
+                as: 'exame_motivo',
+                required: true
+            },
+            {
+                model: model.hda,
+                as: 'exame_hda'
+            },
+            {
+                model: model.exames_previos,
+                as: 'exames_previos_exames',
+                include: [{
+                        model: model.cat,
+                        as: 'cat_exames_previos'
+                    },{
+                        model: model.te,
+                        as: 'te_exames_previos'
+                    },{
+                        model: model.cm,
+                        as: 'cm_exames_previos'
+                    },{
+                        model: model.eco,
+                        as: 'eco_exames_previos'
+                    }
+                ]
+            },{
+                model: model.hpp,
+                as: 'exame_hpp',
+                include: [{
+                        model: model.fatores_risco,
+                        as: 'hpp_fatores_risco'
+                    },{
+                        model: model.dac_previa,
+                        as: 'hpp_dac_previa'
+                    },{
+                        model: model.comorbidades,
+                        as: 'hpp_comorbidades'
+                    }
+                ]
+            },{
+                model: model.medicamentos,
+                as: 'exame_medicamentos',
+            }
+        ],
+  
         where: {
             id: id_exame
         }

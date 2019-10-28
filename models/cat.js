@@ -8,11 +8,12 @@ module.exports = (sequelize, DataTypes) => {
     },
     descricao: DataTypes.STRING
   }, {
-    timestamps : false
+    timestamps : false,
+    freezeTableName: true
   });
   cat.associate = function(models) {
     // associations can be defined here
-    cat.hasMany(models.exames_previos, {as: 'exames_previos_cat'})
+    cat.hasMany(models.exames_previos, {foreignKey: 'cat', as: 'cat_exames_previos'});
   };
   return cat;
 };

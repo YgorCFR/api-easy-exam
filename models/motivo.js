@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
   });
   motivo.associate = function(models) {
     // associations can be defined here
-    motivo.hasMany(models.exames, {foreignKey:'motivo', as: 'motivos'})
+    motivo.hasMany(models.exames, {foreignKey:'motivo', as: 'exame_motivo'})
   };
   return motivo;
 };

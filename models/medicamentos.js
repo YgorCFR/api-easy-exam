@@ -17,11 +17,12 @@ module.exports = (sequelize, DataTypes) => {
     diuretico: DataTypes.STRING,
     outros: DataTypes.STRING
   }, {
-    timestamps: false
+    timestamps: false,
+    freezeTableName: true
   });
   medicamentos.associate = function(models) {
     // associations can be defined here
-    medicamentos.hasMany(models.exames, {foreignKey: medicamentos, as: 'medicamentos_exame'})
+    medicamentos.hasMany(models.exames, {foreignKey: medicamentos, as: 'exame_medicamentos'})
   };
   return medicamentos;
 };

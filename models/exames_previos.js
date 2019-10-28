@@ -6,7 +6,10 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true
     },
-    cat: DataTypes.INTEGER,
+    cat: {
+      type:DataTypes.INTEGER,
+      referencesKey: 'id'
+    },
     te: DataTypes.INTEGER,
     cm: DataTypes.INTEGER,
     eco: DataTypes.INTEGER

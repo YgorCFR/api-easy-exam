@@ -8,11 +8,12 @@ module.exports = (sequelize, DataTypes) => {
     },
     descricao: DataTypes.STRING
   }, {
-    timestamps: false
+    timestamps: false,
+    freezeTableName: true
   });
   cm.associate = function(models) {
     // associations can be defined here
-    cm.hasMany(models.exames_previos, {as: 'exames_previos_cm'})
+    cm.hasMany(models.exames_previos, {foreignKey: 'cm', as: 'exames_previos_cm'})
   };
   return cm;
 };
