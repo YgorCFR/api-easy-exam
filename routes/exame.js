@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var model = require('../models/index');
+//const motivo = require('../models/motivo');
 var url = require('url');
 const sequelize = require('sequelize');
 
@@ -214,12 +215,18 @@ router.post('/', async function (req, res, next){
         let stepExames = await saveExames(model.exames,paciente, stepHda, stepMotivos, stepExamesPrevios, stepHpp, stepExamesPrevios,
             stepFatoresRisco, stepComorbidades, stepMedicamentos, status, data_criacao, data_alteracao, res);
   });
-  //GET listando exames
+  //GET listando exame por id
   router.get('/id/:id', function(req, res, next) {
     const id_exame = req.params.id; 
     model.exames.findOne({
-        //subQuery: false,
-        where:{id:id_exame},
+        include: [{
+            model: model.motivo,
+            as: 'motivos',
+            required: true,
+        }],
+        where: {
+            id: id_exame
+        }
     })
     .then(exame => res.status(200).json({
       data: exame,
