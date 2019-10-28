@@ -225,8 +225,7 @@ router.get('/id/:id', function(req, res, next) {
         }
     })
     .then(exame => res.status(200).json({
-      data: exame,
-      message: `Retornando exame com id ${id_exame}`
+        data: mapExame(exame)
     }))
     .catch(error => res.json({
       data: [],
@@ -249,6 +248,40 @@ router.get('/', function(req, res, next) {
     }))
 });
 
+function mapExame(e){
+    return {
+        id: e.id,
+        status: e.status,
+        data_criacao: e.data_criacao,
+        data_alteracao: e.data_alteracao,
+        paciente: e.exame_paciente,
+        motivo: e.exame_motivo,
+        hda: e.exame_hda,
+        exames_previos: mapExamesPrevios(e.exames_previos_exames),
+        hpp : mapHpp(e.exame_hpp),
+        medicamentos: e.exame_medicamentos
+    }
+}
+
+function mapExamesPrevios(ep){
+    return{
+        id: ep.id,
+        cat: ep.cat_exames_previos,
+        te: ep.te_exames_previos,
+        cm: ep.cm_exames_previos,
+        eco: ep.eco_exames_previos
+    }
+}
+
+function mapHpp(hpp){
+    return{
+        id: hpp.id,
+        fatores_risco: hpp.hpp_fatores_risco,
+        dac_previa: hpp.hpp_dac_previa,
+        comorbidades: hpp.hpp_comorbidades
+    }
+}
+
 function getExameData(){
     return [
         {
@@ -263,7 +296,8 @@ function getExameData(){
         },
         {
             model: model.hda,
-            as: 'exame_hda'
+            as: 'exame_hda',
+            required: true
         },
         {
             model: model.exames_previos,
