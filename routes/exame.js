@@ -218,7 +218,6 @@ router.post('/', async function (req, res, next){
 //GET listando exame por id
 router.get('/id/:id', function(req, res, next) {
     const id_exame = req.params.id; 
-    console.log("####ID#####", id_exame)
     model.exames.findOne({
         include: getExameData(),
         where: {
