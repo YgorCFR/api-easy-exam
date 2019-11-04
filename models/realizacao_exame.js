@@ -14,7 +14,10 @@ module.exports = (sequelize, DataTypes) => {
     movimentos_captacao: DataTypes.STRING,
     extravasamento_sitio_puncao: DataTypes.STRING,
     obs_2: DataTypes.STRING
-  }, {});
+  },{
+    timestamps : false,
+    freezeTableName: true
+  });
   realizacao_exame.associate = function(models) {
     // associations can be defined here
     realizacao_exame.hasMany(models.exames, {foreignKey:'realizacao_exame', as: 'realizacao_exame_exame'})

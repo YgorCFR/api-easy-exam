@@ -15,7 +15,8 @@ module.exports = (sequelize, DataTypes) => {
     dispneia_repouso: DataTypes.BOOLEAN,
     cansaco: DataTypes.BOOLEAN
   }, {
-      timestamps: false
+      timestamps: false,
+      freezeTableName: true
   });
   hda.associate = function(models) {
     // associations can be defined here

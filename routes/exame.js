@@ -218,6 +218,7 @@ router.post('/', async function (req, res, next){
 //GET listando exame por id
 router.get('/id/:id', function(req, res, next) {
     const id_exame = req.params.id; 
+    console.log("####ID#####", id_exame)
     model.exames.findOne({
         include: getExameData(),
         where: {
@@ -259,7 +260,9 @@ function mapExame(e){
         hda: e.exame_hda,
         exames_previos: mapExamesPrevios(e.exames_previos_exames),
         hpp : mapHpp(e.exame_hpp),
-        medicamentos: e.exame_medicamentos
+        medicamentos: e.exame_medicamentos,
+        administracao_radiofarmaco: e.exame_administracao_radiofarmaco,
+        realizacao_exame: e.exame_realizacao_exame
     }
 }
 
@@ -333,6 +336,14 @@ function getExameData(){
         },{
             model: model.medicamentos,
             as: 'exame_medicamentos',
+        },
+        { 
+            model: model.administracao_radiofarmaco,
+            as: 'exame_administracao_radiofarmaco'
+        },
+        {
+            model: model.realizacao_exame,
+            as: 'exame_realizacao_exame'
         }
     ]
 }

@@ -13,7 +13,10 @@ module.exports = (sequelize, DataTypes) => {
     protocolo_imagem: DataTypes.STRING,
     protocolo_estresse: DataTypes.STRING,
     prescricao: DataTypes.STRING
-  }, {});
+  }, {
+    timestamps : false,
+    freezeTableName: true
+  });
   administracao_radiofarmaco.associate = function(models) {
     // associations can be defined here
     administracao_radiofarmaco.hasMany(models.exames, {foreignKey: 'administracao_radiofarmaco', as: 'exame_administracao_radiofarmaco'})
