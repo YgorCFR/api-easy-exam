@@ -259,7 +259,9 @@ function mapExame(e){
         hda: e.exame_hda,
         exames_previos: mapExamesPrevios(e.exames_previos_exames),
         hpp : mapHpp(e.exame_hpp),
-        medicamentos: e.exame_medicamentos
+        medicamentos: e.exame_medicamentos,
+        administracao_radiofarmaco: e.exame_administracao_radiofarmaco,
+        realizacao_exame: e.exame_realizacao_exame
     }
 }
 
