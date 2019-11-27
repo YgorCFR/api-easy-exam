@@ -346,4 +346,91 @@ function getExameData(){
         }
     ]
 }
+
+const saveAdmRadio = async(administracao_radiofarmaco, res) => {
+    await model.administracao_radiofarmaco.create({
+        hora: administracao_radiofarmaco.hora,
+        dose: administracao_radiofarmaco.dose,
+        material_lote: administracao_radiofarmaco.material_lote,
+        via_adm: administracao_radiofarmaco.via_adm,
+        protocolo_imagem: administracao_radiofarmaco.protocolo_imagem,
+        protocolo_estresse: administracao_radiofarmaco.protocolo_estresse,
+        prescricao: administracao_radiofarmaco.prescricao
+    })
+    // .then(administracao_radiofarmaco => res.status(201).json({
+    //     message: "Sucesso ao registrar administracao_radiofarmaco",
+    //     data: {administracao_radiofarmaco}
+    // }))
+    .catch(error => res.status(424).json({
+        message: "Error ao inserir em administracao_radiofarmaco",
+        error: error
+    }))
+    .then(administracao_radiofarmaco => {
+       res = administracao_radiofarmaco;
+    })
+
+    return res;
+}
+
+const saveRealizacaoExame = async(realizacao_exame, res) => {
+    await model.realizacao_exame.create({
+        hora: realizacao_exame.hora,
+        obs_1: realizacao_exame.obs_1,
+        protocolo_captacao: realizacao_exame.protocolo_captacao,
+        justificativa: realizacao_exame.justificativa,
+        contencao: realizacao_exame.contencao,
+        movimentos_captacao: realizacao_exame.movimentos_captacao,
+        extravasamento_sitio_puncao: realizacao_exame.extravasamento_sitio_puncao,
+        obs_2: realizacao_exame.obs_2
+    })
+    // .then(realizacao_exame => res.status(201).json({
+    //     message: "Sucesso ao registrar realizacao_exame",
+    //     data: {realizacao_exame}
+    // }))
+    .catch(error => res.status(424).json({
+        message: "Error ao inserir em realizacao_exame",
+        error: error
+    }))
+    .then(realizacao_exame => {
+       res = realizacao_exame;
+    })
+
+    return res;
+}
+
+const updateExames = async (admRadioFarmaco, realizacaoExame, status, data_alteracao, res, id) => {
+    await model.exames.update({
+        realizacao_exame: admRadioFarmaco.id,
+        administracao_radiofarmaco: realizacaoExame.id,
+        status: status,
+        data_alteracao: data_alteracao
+    },{ 
+      where: {
+        id : id
+      }
+    })
+    .then(exames => res.status(200).json({
+      message: `exame foi atualizado, com status ${status}`,
+      data: {admRadioFarmaco , realizacaoExame, status, data_alteracao, id}
+    })) 
+    .catch(error => res.status(400).json({
+      error:error,
+      message: "Erro ao atualizar exame"
+    }))
+} 
+
+
+/*PUT atualizando exame*/
+router.put('/:id_exame', async function (req, res, next) {
+    const id_exame = req.params.id_exame;
+    const { realizacao_exame ,administracao_radiofarmaco ,status, data_alteracao } = req.body;
+    console.log(req.body);
+    let stepAdministracaoRadioFarmaco = await saveAdmRadio(administracao_radiofarmaco, res);
+    let stepRealizacaoExame = await saveRealizacaoExame(realizacao_exame, res);
+    let stepExame = await updateExames(stepAdministracaoRadioFarmaco, stepRealizacaoExame, status,
+        data_alteracao, res, id_exame);
+    
+});
+
+
 module.exports = router;
