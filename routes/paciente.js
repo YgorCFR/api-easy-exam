@@ -18,7 +18,7 @@ router.get('/', function(req, res, next) {
 
 /*GET buscando paciente por nome */
 router.get('/:nome', function(req, res, next) {
-  const op = Sequelize.Op;
+  const op = sequelize.Op;
   const nome = req.params.nome;
   model.paciente.findAll({
     where: {
