@@ -9,45 +9,37 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       dor_toraxica: {
-        type: Sequelize.INTEGER
+        type: Sequelize.BOOLEAN
       },
       pos_sca: {
-        type: Sequelize.INTEGER
+        type: Sequelize.BOOLEAN
       },
       pos_crvm: {
-        type: Sequelize.INTEGER
+        type: Sequelize.BOOLEAN
       },
       alteracao_exame: {
-        type: Sequelize.INTEGER
+        type: Sequelize.BOOLEAN
       },
       equiv_anginoso: {
-        type: Sequelize.INTEGER
+        type: Sequelize.BOOLEAN
       },
       lesao_coronaria: {
-        type: Sequelize.INTEGER
+        type: Sequelize.BOOLEAN
       },
       arritmia: {
-        type: Sequelize.INTEGER
+        type: Sequelize.BOOLEAN
       },
       sincope: {
-        type: Sequelize.INTEGER
+        type: Sequelize.BOOLEAN
       },
       pos_ptca: {
-        type: Sequelize.INTEGER
+        type: Sequelize.BOOLEAN
       },
       icc: {
-        type: Sequelize.INTEGER
+        type: Sequelize.BOOLEAN
       },
       risco_cirurgico: {
-        type: Sequelize.INTEGER
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.BOOLEAN
       }
     });
   },

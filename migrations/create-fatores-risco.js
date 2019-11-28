@@ -9,28 +9,28 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       has: {
-        type: Sequelize.INTEGER
+        type: Sequelize.BOOLEAN
       },
       dm: {
-        type: Sequelize.INTEGER
+        type: Sequelize.BOOLEAN
       },
       tabagismo: {
-        type: Sequelize.INTEGER
+        type: Sequelize.BOOLEAN
       },
       ex_tabagismo: {
-        type: Sequelize.INTEGER
+        type: Sequelize.BOOLEAN
       },
       obesidade: {
-        type: Sequelize.INTEGER
+        type: Sequelize.BOOLEAN
       },
       dislipdemia: {
-        type: Sequelize.INTEGER
+        type: Sequelize.BOOLEAN
       },
       hf: {
-        type: Sequelize.INTEGER
+        type: Sequelize.BOOLEAN
       },
       menopausa: {
-        type: Sequelize.INTEGER
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,

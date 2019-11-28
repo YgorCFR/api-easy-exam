@@ -6,14 +6,17 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true
     },
-    iam: DataTypes.INTEGER,
-    crvm: DataTypes.INTEGER,
-    ptca: DataTypes.INTEGER,
-    cat_alterado: DataTypes.INTEGER
-  }, {});
+    iam: DataTypes.BOOLEAN,
+    crvm: DataTypes.BOOLEAN,
+    ptca: DataTypes.BOOLEAN,
+    cat_alterado: DataTypes.BOOLEAN
+  }, {
+    timestamps: false,
+    freezeTableName: true
+  });
   dac_previa.associate = function(models) {
     // associations can be defined here
-    dac_previa.hasMany(models.hpp, {as: 'hpps_dac_previa'})
+    dac_previa.hasMany(models.hpp, {foreignKey: 'dac_previa', as: 'hpp_dac_previa'})
   };
   return dac_previa;
 };

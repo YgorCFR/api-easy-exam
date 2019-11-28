@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var model = require('../models/index');
-const Sequelize = require('sequelize');
+const sequelize = require('sequelize');
 var url = require('url');
 
 /* GET buscando todos os pacientes */
@@ -18,7 +18,7 @@ router.get('/', function(req, res, next) {
 
 /*GET buscando paciente por nome */
 router.get('/:nome', function(req, res, next) {
-  const op = Sequelize.Op;
+  const op = sequelize.Op;
   const nome = req.params.nome;
   model.paciente.findAll({
     where: {

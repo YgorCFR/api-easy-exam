@@ -3,14 +3,17 @@ module.exports = (sequelize, DataTypes) => {
   const te = sequelize.define('te', {
     id: {
       type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true
+      primaryKey: true
+      //autoIncrement: false
     },
     descricao: DataTypes.STRING
-  }, {});
+  }, {
+    timestamps: false,
+    freezeTableName: true
+  });
   te.associate = function(models) {
     // associations can be defined here
-    te.hasMany(models.exames_previos, {as: 'exames_previos_te'})
+    te.hasMany(models.exames_previos, {foreignKey: 'te', as: 'exames_previos_te'})
   };
   return te;
 };

@@ -6,14 +6,17 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true
     },
-    avc: DataTypes.INTEGER,
-    irc: DataTypes.INTEGER,
-    aao: DataTypes.INTEGER,
-    dca_vasc: DataTypes.INTEGER
-  }, {});
+    avc: DataTypes.BOOLEAN,
+    irc: DataTypes.BOOLEAN,
+    aao: DataTypes.BOOLEAN,
+    dca_vasc: DataTypes.BOOLEAN
+  }, {
+    timestamps: false,
+    freezeTableName: true
+  });
   comorbidades.associate = function(models) {
     // associations can be defined here
-    comorbidades.hasMany(models.hpp, {as: 'hpps_comorbidades'})
+    comorbidades.hasMany(models.hpp, {foreignKey: 'comorbidades', as: 'hpp_comorbidades'})
   };
   return comorbidades;
 };
